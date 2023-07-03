@@ -11,6 +11,15 @@ def search():  # put application's code here
     results = ddg(keywords, region='wt-wt', max_results=max_results)
     print(results)
     return results
+    
+@app.route('/suche')
+def search():  # put application's code here
+    keywords = request.args.get('q')
+    print(request.args.get('max_results'))
+    max_results = int(request.args.get('max_results') or "3")
+    results = ddg(keywords, region='wt-wt', max_results=max_results)
+    print(results)
+    return results
 
 
 if __name__ == '__main__':
