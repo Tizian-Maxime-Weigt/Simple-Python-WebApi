@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from googlesearch import search
+from .googlesearch import search
 from duckduckgo_search import ddg
 
 app = Flask(__name__)
