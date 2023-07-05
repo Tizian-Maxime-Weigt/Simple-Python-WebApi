@@ -1,3 +1,4 @@
+import json
 from flask import Flask, request, jsonify
 from googleapiclient.discovery import build
 from duckduckgo_search import ddg
