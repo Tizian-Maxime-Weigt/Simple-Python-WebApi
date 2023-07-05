@@ -34,15 +34,21 @@ def format_ddg_results(ddg_results):
 @app.route('/suche')
 def suche():
     keywords = request.args.get('q')
-    max_results = int(request.args.get('max_results', 5))
+    
+    max_results = int(request.args.get('max_results', 3))
 
     google_results = google_search(keywords, num_results=max_results)
+    
     ddg_results = ddg(keywords, region='de-DE', max_results=max_results)
+    
     formatted_ddg_results = format_ddg_results(ddg_results)
 
     results = {
+        
         'Google': google_results,
-        'DuckDuckGo': formatted_ddg_results
+        
+        'DuckDuckGo': formatted_ddg_results,
+        
     }
 
     return jsonify(results)
