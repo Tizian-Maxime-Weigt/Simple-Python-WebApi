@@ -1,26 +1,23 @@
 from flask import Flask, request, jsonify
 from duckduckgo_search import ddg
-from googleapiclient.discovery import build
+from search_google.api import GoogleSearch
 
 app = Flask(__name__)
 
-API_KEY = 'AIzaSyAd2QzPiLueo1n7UF910rQpXc3e-QmT-ZI'
-CX = '300f61ad1f18d4ea8'
+API_KEY = 'your_api_key'
+CX = 'your_cse_id'
 
 def google_search(query, num_results):
-    service = build('customsearch', 'v1', developerKey=API_KEY)
-    res = service.cse().list(q=query, cx=CX, num=num_results).execute()
-    return [item['link'] for item in res.get('items', [])]
+    search = GoogleSearch(buildargs={'developerKey': API_KEY}, cseargs={'cx': CX, 'q': query, 'num': num_results})
+    results = search.get_dict()
+    return [item['link'] for item in results['items']]
 
 @app.route('/suche')
 def suche():
-    
     keywords = request.args.get('q')
-
-    max_results = int("5")
+    max_results = 5
 
     google_results = google_search(keywords, num_results=max_results)
-
     duckduckgo_results = ddg(keywords, region='de-DE', max_results=max_results)
 
     results = {

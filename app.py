@@ -1,10 +1,8 @@
 from flask import Flask, request
 from api.index import suche
-
 app = Flask(__name__)
 
 app.route('/suche')(suche)
-
 app.route('/')()
 
 if __name__ == '__main__':

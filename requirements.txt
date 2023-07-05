@@ -1,3 +1,4 @@
 Flask==2.0.1
-google-api-python-client
 duckduckgo-search==0.7.0
+google-api-python-client==2.22.0
+search-google==1.2.1
