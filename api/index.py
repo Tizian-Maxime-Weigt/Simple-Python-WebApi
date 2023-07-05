@@ -5,10 +5,11 @@ app = Flask(__name__)
 @app.route('/suche')
 def suche():
     keywords = request.args.get('q')
-    print(request.args.get('max_results'))
-    max_results = int(request.args.get('max_results') or "3")
+    
+    max_results = int(request.args.get('max_results') or "5")
+    
     results = ddg(keywords, region='wt-wt', max_results=max_results)
-    print(results)
+    
     return results
 
 
