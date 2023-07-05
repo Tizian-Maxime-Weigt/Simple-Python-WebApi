@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify
-from googlesearch import search
 from duckduckgo_search import ddg
 from googleapiclient.discovery import build
 
@@ -15,10 +14,13 @@ def google_search(query, num_results):
 
 @app.route('/suche')
 def suche():
+    
     keywords = request.args.get('q')
-    max_results = int(request.args.get('max_results') or "5")
+
+    max_results = int("5")
 
     google_results = google_search(keywords, num_results=max_results)
+
     duckduckgo_results = ddg(keywords, region='de-DE', max_results=max_results)
 
     results = {
