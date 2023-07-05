@@ -11,10 +11,10 @@ def index():
     <!DOCTYPE html>
     <html>
     <head>
-        <title>Main Index Page</title>
+        <title>Tizi-Web Api</title>
     </head>
     <body>
-        <h1>Welcome to the Main Index Page!</h1>
+        <h1>Welcome to the Tizi-Web Api!</h1>
     </body>
     </html>
     '''
