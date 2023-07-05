@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 app.route('/suche')(suche)
 
-app.route('/index')
+app.route('')
 def main():
     return "<p>Tizi-Web-Api</p>"
 
