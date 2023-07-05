@@ -3,7 +3,7 @@ from duckduckgo_search import ddg
 app = Flask(__name__)
     
 @app.route('/suche')
-def search():  # put application's code here
+def suche():
     keywords = request.args.get('q')
     print(request.args.get('max_results'))
     max_results = int(request.args.get('max_results') or "3")
