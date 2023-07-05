@@ -4,7 +4,8 @@
 #Docker
 
 ```
-docker run -p 8000:8000 tizi-development\duckduckgo-api
+docker pull ghcr.io/tizidevelopment/duckduckgo-api:main
+docker run -p 8000:8000 ghcr.io/tizidevelopment/duckduckgo-api:main
 ```
 #Host self or Deploy by Github
 ```bash
