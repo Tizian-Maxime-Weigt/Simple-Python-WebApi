@@ -15,6 +15,7 @@ def index():
     </head>
     <body>
         <h1>Welcome to the Tizi-Web Api!</h1>
+        <h1>Doc comming Soon!</h1>
     </body>
     </html>
     '''
