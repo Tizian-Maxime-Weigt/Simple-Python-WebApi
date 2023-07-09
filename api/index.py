@@ -27,7 +27,7 @@ def suche():
 
     results = {
         
-        'Tizi-Web': formatted_ddg_results,
+        'Tizi-Web-v1': formatted_ddg_results,
         
     }
 
