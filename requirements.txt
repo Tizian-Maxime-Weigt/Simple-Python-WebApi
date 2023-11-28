@@ -10,7 +10,5 @@ importlib-metadata
 itsdangerous
 Jinja2
 MarkupSafe
-requests
 urllib3
-Werkzeug
 zipp
