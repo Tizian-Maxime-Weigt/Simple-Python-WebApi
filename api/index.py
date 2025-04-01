@@ -17,7 +17,10 @@ def format_ddg_results(ddg_results):
 
 @app.route('/suche')
 def suche():
+    max_results = 5
+    
     keywords = request.args.get('q')
+    max_results = request.args.get('max_results')
 
     results = DDGS().text(keywords, region='de-DE', max_results=max_results)
     
