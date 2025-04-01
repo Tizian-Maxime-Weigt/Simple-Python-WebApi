@@ -1,6 +1,7 @@
 certifi
 charset-normalizer
 click
+typing_extensions
 duckduckgo-search
 Flask
 gunicorn
