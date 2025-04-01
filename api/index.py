@@ -27,9 +27,7 @@ def suche():
     formatted_ddg_results = format_ddg_results(results)
 
     results = {
-        
         'Web-API-v1.1': formatted_ddg_results,
-        
     }
 
     return jsonify(results)
