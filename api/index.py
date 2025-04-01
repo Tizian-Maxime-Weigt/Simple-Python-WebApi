@@ -1,6 +1,6 @@
 import json
 from flask import Flask, request, jsonify
-from duckduckgo_search import ddg
+from duckduckgo_search import DDGS
 
 app = Flask(__name__)
 
@@ -18,12 +18,10 @@ def format_ddg_results(ddg_results):
 @app.route('/suche')
 def suche():
     keywords = request.args.get('q')
+
+    results = DDGS().text(keywords, region='de-DE', max_results=max_results)
     
-    max_results = int(request.args.get('max_results', 5))
-    
-    ddg_results = ddg(keywords, region='de-DE', max_results=max_results)
-    
-    formatted_ddg_results = format_ddg_results(ddg_results)
+    formatted_ddg_results = format_ddg_results(results)
 
     results = {
         
