@@ -2,7 +2,6 @@ certifi
 charset-normalizer
 click
 duckduckgo-search
-google-api-python-client
 Flask
 gunicorn
 idna
