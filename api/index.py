@@ -20,9 +20,9 @@ def suche():
     max_results = 5
     
     keywords = request.args.get('q')
-    max_results = request.args.get('max_results')
+    max_res = int(request.args.get('max_res'))
 
-    results = DDGS().text(keywords, region='de-DE', max_results=max_results)
+    results = DDGS().text(keywords, region='de-DE', max_results=max_res)
     
     formatted_ddg_results = format_ddg_results(results)
 
