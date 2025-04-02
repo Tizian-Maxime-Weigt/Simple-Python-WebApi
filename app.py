@@ -1,24 +1,12 @@
 from flask import Flask, render_template_string
 from api.index import suche
+from web.index import home
 
 app = Flask(__name__)
 
 @app.route('/')
-def index():
-    html_content = '''
-    <!DOCTYPE html>
-    <html>
-        <head>
-            <title>Basic WebAPI</title>
-        </head>
-        <body>
-            <h1>Welcome to the Basic WebAPI</h1>
-            <h1>Usage:</h1>
-            <h1>/suche?q=&lt;query&gt;&max_res=&lt;maximum_results&gt;</h1>
-        </body>
-    </html>
-    '''
-    return render_template_string(html_content)
+def home_wrapper():
+    return home()
 
 @app.route('/suche')
 def suche_wrapper():
