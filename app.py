@@ -2,12 +2,8 @@ from flask import Flask, request, render_template_string
 from api.index import suche
 app = Flask(__name__)
 
-
-app.route('/suche')(suche)
-app.route('/')(index)
-
 @app.route('/')
-def index():
+def home():
     html_content = '''
     <!DOCTYPE html>
     <html>
@@ -22,6 +18,10 @@ def index():
     </html>
     '''
     return render_template_string(html_content)
+
+
+app.route('/suche')(suche)
+app.route('')(home)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000, debug=True)
