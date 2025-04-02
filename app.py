@@ -15,7 +15,8 @@ def index():
     </head>
     <body>
         <h1>Welcome to the Basic WebAPI</h1>
-        <h1>Doc comming Soon!</h1>
+        <h1>Usage:</h1>
+        <h1>/suche?q=<query>&max_res=<maximum_results></h1>
     </body>
     </html>
     '''
