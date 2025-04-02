@@ -1,6 +1,6 @@
 from flask import Flask, render_template_string
 from api.index import suche
-from web.index import home
+from web import home
 
 app = Flask(__name__)
 
