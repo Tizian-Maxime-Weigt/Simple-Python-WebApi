@@ -1,12 +1,11 @@
 from flask import Flask, render_template_string
 from api.index import suche
-from web import home
 
 app = Flask(__name__)
 
 @app.route('/')
 def home_wrapper():
-    return home()
+    return render_tempalte('home.html')
 
 @app.route('/suche')
 def suche_wrapper():
