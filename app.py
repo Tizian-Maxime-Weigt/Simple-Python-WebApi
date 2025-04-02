@@ -1,4 +1,5 @@
 from flask import Flask, render_template_string
+from api.index import suche
 
 app = Flask(__name__)
 
@@ -19,12 +20,9 @@ def index():
     '''
     return render_template_string(html_content)
 
-# Assuming suche() is defined in api/index.py and works correctly
-from api.index import suche
-
 @app.route('/suche')
 def suche_wrapper():
     return suche()
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000, debug=True)  # Set debug=True for better error reporting
+    app.run(host='0.0.0.0', port=8000, debug=True)
