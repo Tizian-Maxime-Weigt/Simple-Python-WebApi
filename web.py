@@ -1,5 +1,7 @@
 from flask import Flask, request, render_tempalte
 
+app = Flask(__name__)
+
 def home():
     retrun render_tempalte('home.html')
 
