@@ -2,7 +2,7 @@ from flask import Flask, request, render_template_string
 from api.index import suche
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/home')
 def home():
     html_content = '''
         <!DOCTYPE html>
