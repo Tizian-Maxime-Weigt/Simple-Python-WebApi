@@ -1,34 +1,30 @@
-from flask import Flask, request, render_template_string
-from api.index import suche
+from flask import Flask, render_template_string
+
 app = Flask(__name__)
 
+@app.route('/')
 def index():
     html_content = '''
     <!DOCTYPE html>
-        <html>
-            <head>
-                <title>Basic WebAPI</title>
-            </head>
-            <body>
-                <h1>Welcome to the Basic WebAPI</h1>
-                <h1>Usage:</h1>
-                <h1>/suche?q=<query>&max_res=<maximum_results></h1>
-            </body>
+    <html>
+        <head>
+            <title>Basic WebAPI</title>
+        </head>
+        <body>
+            <h1>Welcome to the Basic WebAPI</h1>
+            <h1>Usage:</h1>
+            <h1>/suche?q=&lt;query&gt;&max_res=&lt;maximum_results&gt;</h1>
+        </body>
     </html>
     '''
     return render_template_string(html_content)
 
-@app.route('/')
-def home():
-    return index()
-    
-@app.route('/home')
-def home():
-    return index()
+# Assuming suche() is defined in api/index.py and works correctly
+from api.index import suche
 
 @app.route('/suche')
 def suche_wrapper():
     return suche()
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000, debug=False)
+    app.run(host='0.0.0.0', port=8000, debug=True)  # Set debug=True for better error reporting
