@@ -16,18 +16,22 @@ def format_ddg_results(ddg_results):
     return results
 
 @app.route('/suche')
-def suche():
-    max_res = 4
+def suche(max_res):
+    default_max_res = 6
     
     keywords = request.args.get('q')
-    max_res = int(request.args.get('max_res'))
+    
+    try:
+        max_res = int(request.args.get('max_res', default_max_res))
+    except (TypeError, ValueError):
+        max_res = default_max_res
 
     results = DDGS().text(keywords, region='de-DE', max_results=max_res)
     
     formatted_ddg_results = format_ddg_results(results)
 
     results = {
-        'Web-API-v1.1': formatted_ddg_results,
+        'TMW-Web-Api-v1.2': formatted_ddg_results,
     }
 
     return jsonify(results)
