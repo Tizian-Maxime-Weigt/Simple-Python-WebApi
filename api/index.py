@@ -1,15 +1,14 @@
 import time
-from collections import defaultdict
 from urllib.parse import quote
 
 from flask import Flask, request, jsonify
 from duckduckgo_search import DDGS
-from httpx import Client, Timeout
+from httpx import Client, TimeoutException
 from parsel import Selector
 
 app = Flask(__name__)
 
-# Cache config
+# Cache configuration
 cache = {}
 CACHE_TTL = 600
 
@@ -18,39 +17,45 @@ client = Client(
     headers={
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                       "AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/114.0.0.0 Safari/537.36",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.9,de;q=0.8",
+                      "Chrome/113.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,"
+                  "image/webp,image/apng,*/*;q=0.8",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "en-US,en;q=0.9",
     },
     follow_redirects=True,
+    timeout=10.0,
     http2=True,
-    timeout=Timeout(10.0)
 )
 
 def parse_google_search_results(selector: Selector):
     results = []
-    for box in selector.xpath("//div[@class='tF2Cxc']"):
+    for box in selector.xpath("//div[contains(@class,'tF2Cxc')]"):
         title = box.xpath(".//h3/text()").get()
         url = box.xpath(".//a/@href").get()
-        snippet = box.xpath(".//div[@class='IsZvec']//span/text()").get()
+        snippet_parts = box.xpath(".//div[@class='VwiC3b']//text()").getall()
+        snippet = " ".join(snippet_parts).strip()
+
         if not title or not url:
             continue
+
         results.append({
             "title": title,
             "link": url,
-            "description": snippet or "",
+            "description": snippet,
         })
+
     return results
 
 def scrape_google_search(query: str, max_results=6):
-    url = f"https://www.google.com/search?hl=en&q={quote(query)}&num={max_results}"
-    response = client.get(url)
-
+    search_url = f"https://www.google.com/search?hl=en&q={quote(query)}&num={max_results}"
+    try:
+        response = client.get(search_url)
+    except TimeoutException:
+        raise RuntimeError("Google request timed out.")
+    
     if response.status_code != 200:
         raise RuntimeError(f"Google search failed with status code {response.status_code}")
-
-    if any(keyword in response.text.lower() for keyword in ["unusual traffic", "captcha", "sorry"]):
-        raise RuntimeError("Blocked by Google CAPTCHA or rate limit.")
 
     selector = Selector(response.text)
     results = parse_google_search_results(selector)
@@ -63,13 +68,12 @@ def format_ddg_results(ddg_results):
         'link': item['href'],
     } for item in ddg_results]
 
-@app.route('/suche', methods=['GET'])
+@app.route('/suche')
 def suche():
     default_max_res = 6
     keywords = request.args.get('q')
-
     if not keywords:
-        return jsonify({'error': 'Query parameter "q" is required'}), 400
+        return jsonify({'error': 'Query parameter q is required'}), 400
 
     try:
         max_res = int(request.args.get('max_res', default_max_res))
@@ -104,4 +108,4 @@ def suche():
     return jsonify(response)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=8080)
