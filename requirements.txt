@@ -12,3 +12,5 @@ Jinja2
 MarkupSafe
 urllib3
 zipp
+httpx
+parsel
