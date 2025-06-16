@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home_wrapper():
-    return render_tempalte('home.html')
+    return "Hey!"
 
 @app.route('/suche')
 def suche_wrapper():
