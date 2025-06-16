@@ -30,17 +30,16 @@ client = Client(
 
 def parse_google_search_results(selector: Selector):
     results = []
-    # Google’s actual HTML may vary, this XPath is a good base but might need tuning
-    for box in selector.xpath("//div[@class='g']"):
+    for box in selector.xpath("//div[@class='tF2Cxc']"):
         title = box.xpath(".//h3/text()").get()
         url = box.xpath(".//a/@href").get()
-        snippet = box.xpath(".//span[@class='aCOpRe']/text()").get() or ""
+        snippet = box.xpath(".//div[@class='IsZvec']//span/text()").get()
         if not title or not url:
             continue
         results.append({
             "title": title,
             "link": url,
-            "description": snippet,
+            "description": snippet or "",
         })
     return results
 
