@@ -16,7 +16,7 @@ def format_ddg_results(ddg_results):
     return results
 
 @app.route('/suche')
-def suche(max_res):
+def suche():
     default_max_res = 6
     
     keywords = request.args.get('q')
