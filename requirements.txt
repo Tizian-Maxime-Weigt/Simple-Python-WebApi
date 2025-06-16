@@ -13,4 +13,5 @@ MarkupSafe
 urllib3
 zipp
 httpx
+httpx[http2]
 parsel
